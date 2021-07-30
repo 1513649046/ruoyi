@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.InformationMapper">
+    
+    <resultMap type="Information" id="InformationResult">
+        <result property="infoId"    column="info_Id"    />
+        <result property="infoTitle"    column="info_title"    />
+        <result property="infoContent"    column="info_content"    />
+        <result property="infoStates"    column="info_states"    />
+        <result property="typeId"    column="type_id"    />
+        <result property="infoType"    column="info_type"    />
+        <result property="deleteFlag"    column="delete_flag"    />
+        <result property="infoSort"    column="info_sort"    />
+        <result property="infoRemarks"    column="info_remarks"    />
+        <result property="isFpage"    column="is_fpage"    />
+        <result property="infoViews"    column="info_views"    />
+        <result property="infoMassage"    column="info_massage"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="isHotinfo"    column="is_Hotinfo"    />
+    </resultMap>
+
+    <sql id="selectInformationVo">
+        select info_Id, info_title, info_content, info_states, type_id, info_type, delete_flag, info_sort, info_remarks, is_fpage, info_views, info_massage, create_by, create_time, update_by, update_time, is_Hotinfo from information
+    </sql>
+
+    <select id="selectInformationList" parameterType="Information" resultMap="InformationResult">
+        <include refid="selectInformationVo"/>
+        <where>
+            <if test="infoId != null  and infoId !=''"> and info_id = #{infoId}</if>
+            <if test="infoTitle != null  and infoTitle != ''"> and info_title = #{infoTitle}</if>
+
+            <!--<if test="infoContent != null  and infoContent != ''"> and info_content = #{infoContent}</if>
+            <if test="deleteFlag != null "> and delete_flag = #{deleteFlag}</if>-->
+
+            <if test="infoStates != null  and infoStates != ''"> and info_states = #{infoStates}</if>
+            <if test="infoType != null  and infoType != ''"> and info_type = #{infoType}</if>
+            <if test="infoSort != null "> and info_sort = #{infoSort}</if>
+            <if test="isFpage != null  and isFpage != ''"> and is_fpage = #{isFpage}</if>
+        </where>
+        order by info_sort desc
+    </select>
+
+    <select id="selectInformationById" parameterType="Long" resultMap="InformationResult">
+        <include refid="selectInformationVo"/>
+        where info_Id = #{infoId}
+        <!--select * from information order by info_Id desc  (显示倒序)-->
+    </select>
+        
+    <insert id="insertInformation" parameterType="Information" useGeneratedKeys="true" keyProperty="infoId">
+        insert into information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="infoTitle != null">info_title,</if>
+            <if test="infoContent != null">info_content,</if>
+            <if test="infoStates != null">info_states,</if>
+
+            <if test="typeId != null">type_id,</if>
+            <if test="infoType != null">info_type,</if>
+
+            <if test="deleteFlag != null">delete_flag,</if>
+
+            <if test="infoSort != null">info_sort,</if>
+            <if test="infoRemarks != null">info_remarks,</if>
+            <if test="isFpage != null">is_fpage,</if>
+            <if test="infoViews != null">info_views,</if>
+            <if test="infoMassage != null">info_massage,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="isHotinfo != null">is_Hotinfo,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="infoTitle != null">#{infoTitle},</if>
+            <if test="infoContent != null">#{infoContent},</if>
+            <if test="infoStates != null">#{infoStates},</if>
+            <if test="typeId != null">#{typeId},</if>
+            <if test="infoType != null">#{infoType},</if>
+            <if test="deleteFlag != null">#{deleteFlag},</if>
+            <if test="infoSort != null">#{infoSort},</if>
+            <if test="infoRemarks != null">#{infoRemarks},</if>
+            <if test="isFpage != null">#{isFpage},</if>
+            <if test="infoViews != null">#{infoViews},</if>
+            <if test="infoMassage != null">#{infoMassage},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="isHotinfo != null">#{isHotinfo},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInformation" parameterType="Information">
+        update information
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="infoTitle != null">info_title = #{infoTitle},</if>
+            <if test="infoContent != null">info_content = #{infoContent},</if>
+            <if test="infoStates != null">info_states = #{infoStates},</if>
+            <if test="typeId != null">type_id = #{typeId},</if>
+            <if test="infoType != null">info_type = #{infoType},</if>
+            <if test="deleteFlag != null">delete_flag = #{deleteFlag},</if>
+            <if test="infoSort != null">info_sort = #{infoSort},</if>
+            <if test="infoRemarks != null">info_remarks = #{infoRemarks},</if>
+            <if test="isFpage != null">is_fpage = #{isFpage},</if>
+            <if test="infoViews != null">info_views = #{infoViews},</if>
+            <if test="infoMassage != null">info_massage = #{infoMassage},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="isHotinfo != null">is_Hotinfo = #{isHotinfo},</if>
+        </trim>
+        where info_Id = #{infoId}
+    </update>
+
+    <delete id="deleteInformationById" parameterType="Long">
+        delete from information where info_Id = #{infoId}
+    </delete>
+
+    <delete id="deleteInformationByIds" parameterType="String">
+        delete from information where info_Id in 
+        <foreach item="infoId" collection="array" open="(" separator="," close=")">
+            #{infoId}
+        </foreach>
+    </delete>
+</mapper>
